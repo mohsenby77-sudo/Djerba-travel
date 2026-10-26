@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Djerba Travel</title>
+<style>
+:root{--p:#007bff;--s:#28a745;--w:#fff;--b:#000;--g:#f8f9fa;--t:#666}
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
+body{background:var(--g);color:var(--b);line-height:1.6}
+.w{max-width:600px;margin:0 auto;padding:15px}
+.h{background:var(--p);color:var(--w);padding:20px;text-align:center;border-radius:0 0 20px 20px;margin-bottom:20px}
+.n{display:flex;justify-content:center;gap:10px;margin-bottom:20px}
+.n button{padding:8px 15px;border:none;border-radius:5px;cursor:pointer;background:var(--w);color:var(--p);font-weight:700}
+.n button.on{background:var(--b);color:var(--w)}
+.c{background:var(--w);padding:20px;border-radius:15px;box-shadow:0 4px 6px rgba(0,0,0,0.1);margin-bottom:20px}
+.t{display:flex;margin-bottom:20px;border-bottom:2px solid var(--g)}
+.t div{flex:1;padding:10px;text-align:center;cursor:pointer;font-weight:700}
+.t div.on{border-bottom:3px solid var(--p);color:var(--p)}
+input,select,button{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;font-size:16px}
+.b{background:var(--p);color:var(--w);border:none;font-weight:700;cursor:pointer}
+.g{background:var(--s)}
+.r{background:#dc3545}
+.m{display:none}
+.m.on{display:block}
+.it{background:#e9ecef;padding:10px;border-radius:8px;margin-bottom:10px;position:relative}
+.wn{background:#25d366;color:var(--w);text-decoration:none;display:inline-block;padding:10px;border-radius:8px;text-align:center;width:100%}
+.ad{border-top:2px dashed #ccc;margin-top:20px;padding-top:20px}
+</style>
+</head>
+<body>
+<div class="w">
+    <div class="h"><h1 id="ti">Djerba Travel</h1><p id="st"></p></div>
+    <div class="n">
+        <button id="a1" onclick="lang('ar')">عربي</button>
+        <button id="a2" onclick="lang('fr')">Fr</button>
+        <button id="a3" onclick="lang('en')">En</button>
+        <button id="a4" onclick="toggleA()">⚙️</button>
+    </div>
+
+    <!-- Forms -->
+    <div id="main-ui">
+        <div class="t">
+            <div id="tf" class="on" onclick="tab('f')">✈️</div>
+            <div id="tc" onclick="tab('c')">🚗</div>
+        </div>
+        
+        <div id="ff" class="m on">
+            <input type="text" id="f1" placeholder="الإسم">
+            <input type="text" id="f2" placeholder="من">
+            <input type="text" id="f3" placeholder="إلى">
+            <input type="date" id="f4">
+            <button class="b" id="gf" onclick="send('f')"></button>
+        </div>
+
+        <div id="fc" class="m">
+            <input type="text" id="c1" placeholder="الإسم">
+            <select id="c2"><option>A</option><option>B</option><option>C</option></select>
+            <input type="number" id="c3" placeholder="الأيام">
+            <input type="date" id="c4">
+            <button class="b g" id="gc" onclick="send('c')"></button>
+        </div>
+        
+        <div id="rs" class="m" style="text-align:center">
+            <p id="rt" style="margin:15px 0"></p>
+            <a id="wal" href="#" class="wn">WhatsApp</a>
+            <button class="b" onclick="location.reload()" style="margin-top:10px" id="bn"></button>
+        </div>
+    </div>
+
+    <!-- Admin -->
+    <div id="ad-ui" class="m ad">
+        <div id="p-box">
+            <input type="password" id="pin" placeholder="PIN">
+            <button class="b" id="en" onclick="login()">Enter</button>
+        </div>
+        <div id="a-c" class="m">
+            <h3 id="ah">Admin</h3>
+            <input type="text" id="s_n" placeholder="Business Name">
+            <input type="text" id="s_w" placeholder="WhatsApp: 216xxx">
+            <input type="text" id="s_p" placeholder="New PIN">
+            <button class="b" id="sv" onclick="saveS()">Save</button>
+            <hr>
+            <h4 id="ch">Clients</h4>
+            <input type="text" id="cn" placeholder="Name">
+            <input type="text" id="cp" placeholder="Phone">
+            <button class="b g" id="sc" onclick="addC()">Add</button>
+            <div id="cli-l"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+let T={
+ar:["جربة ترافيل","لطلب التذاكر وكراء السيارات","الإسم","من","إلى","تاريخ","إرسال الطلب","نوع السيارة","عدد الأيام","شكراً! طلبك جاهز للإرسال عبر واتساب","العودة","لوحة التحكم","إسم النشاط","رقم الواتساب","الرقم السري الجديد","حفظ الإعدادات","قائمة العملاء","إضافة عميل","تواصل معنا","تذكرة طيران","كراء سيارة","تم الحفظ","خطأ","طلب تذكرة","طلب سيارة"],
+fr:["Djerba Travel","Réservation Vols & Voitures","Nom","De","À","Date","Envoyer","Type de voiture","Jours","Merci! Votre demande est prête","Retour","Admin","Nom Pro","WhatsApp","Nouveau PIN","Sauvegarder","Clients","Ajouter","Contact","Vol","Voiture","Enregistré","Erreur","Demande Vol","Demande Car"],
+en:["Djerba Travel","Flight & Car Booking","Name","From","To","Date","Send Request","Car Type","Days","Ready to send via WhatsApp","Back","Admin","Business Name","WhatsApp","New PIN","Save Settings","Client List","Add Client","Contact Us","Flight","Car","Saved","Error","Flight Request","Car Request"]
+};
+
+let curL='ar';
+let $ = id => document.getElementById(id);
+
+function lang(v){
+    curL=v;
+    let d=v==='ar'?'rtl':'ltr';
+    document.body.dir=d;
+    let list=T[v];
+    $("ti").innerText=list[0];
+    $("st").innerText=list[1];
+    $("f1").placeholder=list[2]; $("c1").placeholder=list[2];
+    $("f2").placeholder=list[3];
+    $("f3").placeholder=list[4];
+    $("f4").placeholder=list[5];
+    $("gf").innerText=list[6];
+    $("gc").innerText=list[6];
+    $("c3").placeholder=list[8];
+    $("rt").innerText=list[9];
+    $("bn").innerText=list[10];
+    $("en").innerText=list[11];
+    $("s_n").placeholder=list[12];
+    $("s_w").placeholder=list[13];
+    $("s_p").placeholder=list[14];
+    $("sv").innerText=list[15];
+    $("ch").innerText=list[16];
+    $("cn").placeholder=list[2];
+    $("cp").placeholder=list[13];
+    $("sc").innerText=list[17];
+}
+
+function tab(t){
+    $("ff").classList.toggle('on',t==='f');
+    $("fc").classList.toggle('on',t==='c');
+    $("tf").classList.toggle('on',t==='f');
+    $("tc").classList.toggle('on',t==='c');
+}
+
+function toggleA(){ $("ad-ui").classList.toggle('on'); }
+
+function login(){
+    let s=JSON.parse(localStorage.getItem('dt_set')||'{"p":"1234"}');
+    if($("pin").value===s.p){$("p-box").style.display='none';$("a-c").classList.add('on');renderC();}
+}
+
+function saveS(){
+    let s={n:$("s_n").value, w:$("s_w").value, p:$("s_p").value||'1234'};
+    localStorage.setItem('dt_set',JSON.stringify(s));
+    alert('OK');
+}
+
+function send(t){
+    let s=JSON.parse(localStorage.getItem('dt_set')||'{"w":"216"}');
+    let m="", n=s.w, name="";
+    if(t==='f'){
+        name=$("f1").value;
+        m=`${T[curL][23]}\n- ${T[curL][2]}: ${name}\n- ${T[curL][3]}: ${$("f2").value}\n- ${T[curL][4]}: ${$("f3").value}\n- ${T[curL][5]}: ${$("f4").value}`;
+    }else{
+        name=$("c1").value;
+        m=`${T[curL][24]}\n- ${T[curL][2]}: ${name}\n- ${T[curL][7]}: ${$("c2").value}\n- ${T[curL][8]}: ${$("c3").value}\n- ${T[curL][5]}: ${$("c4").value}`;
+    }
+    if(name) addC(name, "Auto");
+    $("wal").href=`https://wa.me/${n}?text=${encodeURIComponent(m)}`;
+    $("ff").style.display='none'; $("fc").style.display='none'; $("rs").classList.add('on');
+}
+
+function addC(n,p){
+    let name=n||$("cn").value;
+    let phone=p||$("cp").value;
+    if(!name)return;
+    let list=JSON.parse(localStorage.getItem('dt_cli')||'[]');
+    list.push({id:Date.now(), n:name, p:phone});
+    localStorage.setItem('dt_cli',JSON.stringify(list));
+    renderC();
+}
+
+function delC(id){
+    let list=JSON.parse(localStorage.getItem('dt_cli')||'[]');
+    list=list.filter(x=>x.id!==id);
+    localStorage.setItem('dt_cli',JSON.stringify(list));
+    renderC();
+}
+
+function renderC(){
+    let list=JSON.parse(localStorage.getItem('dt_cli')||'[]');
+    $("cli-l").innerHTML=list.map(c=>`<div class="it"><b>${c.n}</b> (${c.p}) <button onclick="delC(${c.id})" style="width:auto;padding:2px 5px;float:left" class="r">X</button></div>`).join('');
+}
+
+lang('ar');
+let initS=JSON.parse(localStorage.getItem('dt_set')||'{"n":"Djerba Travel","w":"216","p":"1234"}');
+$("s_n").value=initS.n; $("s_w").value=initS.w;
+</script>
+</body>
+</html>
