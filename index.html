@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Djerba Travel</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
+body{background:#f2f2f2}
+.w{max-width:600px;margin:auto;padding:12px}
+.h{background:#007bff;color:#fff;padding:18px;text-align:center;border-radius:0 0 18px 18px}
+.n{display:flex;gap:8px;justify-content:center;margin:12px 0}
+.n button{flex:1;padding:8px;border:0;border-radius:8px;background:#fff;font-weight:700}
+.c{background:#fff;padding:16px;border-radius:14px}
+.t{display:flex;text-align:center;font-weight:700}
+.t div{flex:1;padding:10px;cursor:pointer}
+.on2{border-bottom:3px solid #007bff;color:#007bff}
+input,select{width:100%;padding:11px;margin:6px 0;border:1px solid #ccc;border-radius:8px;font-size:16px}
+.b{width:100%;padding:12px;border:0;border-radius:8px;background:#007bff;color:#fff;font-weight:700;margin-top:8px}
+.g{background:#28a745}
+.m{display:none}
+.m.on{display:block}
+.wn{display:block;background:#25d366;color:#fff;text-align:center;padding:12px;border-radius:8px;text-decoration:none;margin-top:10px;font-weight:700}
+.it{background:#f1f1f1;padding:8px;border-radius:8px;margin:6px 0}
+</style>
+</head>
+<body>
+<div class="w">
+<div class="h"><h2 id="ti">Djerba Travel</h2><p id="st"></p><small id="nt"></small></div>
+<div class="n"><button onclick="lang('ar')">عربي</button><button onclick="lang('fr')">FR</button><button onclick="lang('en')">EN</button><button onclick="document.getElementById('ad').classList.toggle('on')">⚙️</button></div>
+<div class="c">
+<div id="ui">
+<div class="t"><div id="tf" class="on2" onclick="tab('f')">✈️ <span id="ttf"></span></div><div id="tc" onclick="tab('c')">🚗 <span id="ttc"></span></div></div>
+<div id="ff" class="m on"><input id="f1"><input id="f2"><input id="f3"><input id="f4" type="date"><input id="f5" type="tel"><button id="gf" class="b" onclick="send('f')"></button></div>
+<div id="fc" class="m"><input id="c1"><select id="c2"></select><input id="c3" type="number" min="1"><input id="c4" type="date"><input id="c5" type="tel"><button id="gc" class="b g" onclick="send('c')"></button></div>
+<div id="rs" class="m" style="text-align:center"><p id="rt" style="margin:12px"></p><a id="wal" class="wn" target="_blank">WhatsApp</a><button id="bn" class="b" onclick="location.reload()"></button></div>
+</div>
+<div id="ad" class="m" style="margin-top:15px;border-top:2px dashed #ccc;padding-top:12px">
+<div id="pb"><input id="pin" type="password" placeholder="PIN"><button id="en" class="b" onclick="login()"></button></div>
+<div id="ac" class="m"><input id="s_n"><input id="s_w"><input id="s_p"><button id="sv" class="b" onclick="saveS()"></button><hr><input id="cn"><input id="cp"><button id="sc" class="b g" onclick="addC()"></button><div id="ll"></div></div>
+</div>
+</div>
+</div>
+<script>
+let cur='ar';
+let $=id=>document.getElementById(id);
+let T={
+ar:{st:'طلب تذاكر طيران وكراء سيارات في جربة',nt:'ملاحظة: هذا طلب استفسار فقط، وليس حجز مؤكد ولا دفع.',ttf:'طيران',ttc:'سيارة',f1:'الاسم الكامل',f2:'من اين؟',f3:'الى: جربة',f5:'رقم الهاتف',gf:'ارسال طلب الطيران',c1:'الاسم الكامل',co:['اقتصادية','عائلية','فاخرة SUV'],ct:'نوع السيارة',c3:'عدد الايام',c5:'رقم الهاتف',gc:'ارسال طلب السيارة',rt:'شكرا! طلبك جاهز. اضغط زر واتساب لارساله وسنرد عليك.',bn:'طلب جديد',en:'دخول (الرمز: 1234)',sn:'اسم النشاط',sw:'رقم واتساب: 216...',sp:'رمز PIN جديد',sv:'حفظ الاعدادات',sc:'اضافة عميل',mf:'طلب تذكرة طيران - جربة',mc:'طلب كراء سيارة - جربة'},
+fr:{st:'Demande billets avion et location voiture a Djerba',nt:'Note: simple demande, pas de reservation confirmee ni paiement.',ttf:'Vol',ttc:'Voiture',f1:'Nom complet',f2:'De',f3:'Vers: Djerba',f5:'Telephone',gf:'Envoyer demande Vol',c1:'Nom complet',co:['Economique','Familiale','Luxe SUV'],ct:'Type voiture',c3:'Nb jours',c5:'Telephone',gc:'Envoyer demande Voiture',rt:'Merci! Cliquez WhatsApp pour envoyer.',bn:'Nouvelle demande',en:'Entrer (PIN:1234)',sn:'Nom business',sw:'WhatsApp: 216...',sp:'Nouveau PIN',sv:'Sauvegarder',sc:'Ajouter client',mf:'Demande Billet - Djerba',mc:'Demande Voiture - Djerba'},
+en:{st:'Flight tickets and car rental request in Djerba',nt:'Note: enquiry only, not confirmed booking and no payment.',ttf:'Flight',ttc:'Car',f1:'Full name',f2:'From',f3:'To: Djerba',f5:'Phone',gf:'Send Flight Request',c1:'Full name',co:['Economy','Family','Luxury SUV'],ct:'Car type',c3:'Days number',c5:'Phone',gc:'Send Car Request',rt:'Thanks! Press WhatsApp to send.',bn:'New request',en:'Login (PIN:1234)',sn:'Business name',sw:'WhatsApp: 216...',sp:'New PIN',sv:'Save settings',sc:'Add client',mf:'Flight Request - Djerba',mc:'Car Request - Djerba'}
+};
+function S(){try{let v=JSON.parse(localStorage.getItem('dt_set'));if(v&&v.w)return v;}catch(e){}return{n:'Djerba Travel',w:'21600000000',p:'1234'}}
+function lang(v){cur=v;document.documentElement.lang=v;document.body.dir=(v=='ar'?'rtl':'ltr');let L=T[v];let s=S();$('ti').innerText=s.n;$('st').innerText=L.st;$('nt').innerText=L.nt;$('ttf').innerText=L.ttf;$('ttc').innerText=L.ttc;$('f1').placeholder=L.f1;$('f2').placeholder=L.f2;$('f3').placeholder=L.f3;$('f5').placeholder=L.f5;$('gf').innerText=L.gf;$('c1').placeholder=L.c1;$('c2').innerHTML=L.co.map(o=>'<option>'+o+'</option>').join('');$('c3').placeholder=L.c3;$('c5').placeholder=L.c5;$('gc').innerText=L.gc;$('rt').innerText=L.rt;$('bn').innerText=L.bn;$('en').innerText=L.en;$('s_n').placeholder=L.sn;$('s_w').placeholder=L.sw;$('s_p').placeholder=L.sp;$('sv').innerText=L.sv;$('cn').placeholder=L.f1;$('cp').placeholder=L.f5;$('sc').innerText=L.sc;}
+function tab(t){$('ff').classList.toggle('on',t=='f');$('fc').classList.toggle('on',t=='c');$('tf').classList.toggle('on2',t=='f');$('tc').classList.toggle('on2',t=='c');}
+function login(){if($('pin').value==S().p){$('pb').style.display='none';$('ac').classList.add('on');renderC();}else{alert('PIN');}}
+function saveS(){let o=S();o.n=$('s_n').value||o.n;o.w=$('s_w').value||o.w;if($('s_p').value)o.p=$('s_p').value;localStorage.setItem('dt_set',JSON.stringify(o));$('ti').innerText=o.n;alert('OK');}
+function send(t){let s=S();let L=T[cur];let name,phone,msg;if(t=='f'){name=$('f1').value.trim();phone=$('f5').value.trim();msg=L.mf+'\n- '+L.f1+': '+name+'\n- '+L.f2+': '+$('f2').value+'\n- '+L.f3+': '+$('f3').value+'\n- Date: '+$('f4').value+'\n- Tel: '+phone;}else{name=$('c1').value.trim();phone=$('c5').value.trim();msg=L.mc+'\n- '+L.c1+': '+name+'\n- '+L.ct+': '+$('c2').value+'\n- '+L.c3+': '+$('c3').value+'\n- Date: '+$('c4').value+'\n- Tel: '+phone;}if(!name){alert('!');return;}let ls=[];try{ls=JSON.parse(localStorage.getItem('dt_cli'))||[]}catch(e){ls=[]}ls.push({id:Date.now(),n:name,p:phone});localStorage.setItem('dt_cli',JSON.stringify(ls));$('wal').href='https://wa.me/'+s.w+'?text='+encodeURIComponent(msg);$('ff').style.display='none';$('fc').style.display='none';$('rs').classList.add('on');renderC();}
+function addC(a,b){let name=a||$('cn').value.trim();let ph=b||$('cp').value.trim();if(!name)return;let ls=[];try{ls=JSON.parse(localStorage.getItem('dt_cli'))||[]}catch(e){ls=[]}ls.push({id:Date.now(),n:name,p:ph});localStorage.setItem('dt_cli',JSON.stringify(ls));$('cn').value='';$('cp').value='';renderC();}
+function delC(id){let ls=[];try{ls=JSON.parse(localStorage.getItem('dt_cli'))||[]}catch(e){ls=[]}ls=ls.filter(function(x){return x.id!==id});localStorage.setItem('dt_cli',JSON.stringify(ls));renderC();}
+function renderC(){let ls=[];try{ls=JSON.parse(localStorage.getItem('dt_cli'))||[]}catch(e){ls=[]}$('ll').innerHTML=ls.slice().reverse().map(function(c){return '<div class=it><b>'+c.n+'</b> - '+c.p+' <button onclick=delC('+c.id+') style="width:auto;padding:2px 8px;background:#dc3545;color:#fff;border:0;border-radius:6px;float:left">X</button></div>'}).join('');}
+$('s_n').value=S().n;$('s_w').value=S().w;lang('ar');
+</script>
+</body>
+                         </html>
